@@ -1,36 +1,14 @@
 // components/Navbar.js
 export default function Navbar() {
   return (
-    <nav
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '60px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '0 20px',
-        backdropFilter: 'blur(10px)',
-        background: 'rgba(255, 255, 255, 0.3)',
-        boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-        zIndex: 10000
-      }}
-    >
+    <nav className="navbar">
       {/* Left - Gradient name */}
-      <div
-        className="navbar-gradient-text"
-        style={{
-          fontWeight: 'bold',
-          fontSize: '20px'
-        }}
-      >
+      <div className="navbar-gradient-text">
         Zeina Mohamed
       </div>
 
       {/* Middle - Links */}
-      <div style={{ display: 'flex', gap: '50px', justifyContent: 'center' }}>
+      <div className="nav-links">
         {['About', 'Skills', 'Projects'].map((link) => (
           <a
             key={link}
@@ -43,21 +21,12 @@ export default function Navbar() {
       </div>
 
       {/* Right - Icons */}
-      <div style={{ display: 'flex', gap: '15px', fontSize: '22px' }}>
+      <div className="nav-icons">
         <a
           href="https://mail.google.com/mail/?view=cm&fs=1&to=zn.mhmd2003@gmail.com"
           target="_blank"
           rel="noopener noreferrer"
-          style={{
-            transition: 'transform 0.2s ease',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '5px',
-            overflow: 'visible'
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.2)')}
-          onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+          className="icon-link"
         >
           <img src="/icons/gmail.svg" alt="Gmail" width="25" height="25" />
         </a>
@@ -66,25 +35,34 @@ export default function Navbar() {
           href="https://www.linkedin.com/in/zeinamohamed2003"
           target="_blank"
           rel="noopener noreferrer"
-          style={{
-            transition: 'transform 0.2s ease',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '5px',
-            overflow: 'visible'
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.2)')}
-          onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+          className="icon-link"
         >
           <img src="/icons/linkedin.svg" alt="LinkedIn" width="23" height="23" />
         </a>
       </div>
 
       <style jsx>{`
-        
-        /* Gradient animation for name */
+        /* Navbar container */
+        .navbar {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 60px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 20px;
+          backdrop-filter: blur(10px);
+          background: rgba(255, 255, 255, 0.3);
+          box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+          z-index: 10000;
+        }
+
+        /* Gradient name */
         .navbar-gradient-text {
+          font-weight: bold;
+          font-size: 20px;
           background: linear-gradient(
             90deg,
             #00b4ff,
@@ -101,15 +79,17 @@ export default function Navbar() {
         }
 
         @keyframes gradientFlow {
-          0% {
-            background-position: 0% 50%;
-          }
-          100% {
-            background-position: 100% 50%;
-          }
+          0% { background-position: 0% 50%; }
+          100% { background-position: 100% 50%; }
         }
 
-        /* Link styling */
+        /* Links */
+        .nav-links {
+          display: flex;
+          gap: 50px;
+          justify-content: center;
+        }
+
         .nav-link {
           text-decoration: none;
           color: #000;
@@ -119,7 +99,6 @@ export default function Navbar() {
           transition: all 0.3s ease;
         }
 
-        /* Gradient hover for links */
         .nav-link:hover {
           color: transparent;
           background: linear-gradient(
@@ -136,6 +115,56 @@ export default function Navbar() {
           animation: gradientFlow 6s linear infinite alternate;
           text-shadow: 0 0 8px rgba(63, 169, 245, 0.5),
             0 0 15px rgba(166, 120, 249, 0.4);
+        }
+
+        /* Icons */
+        .nav-icons {
+          display: flex;
+          gap: 15px;
+          font-size: 22px;
+        }
+
+        .icon-link {
+          transition: transform 0.2s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 5px;
+          overflow: visible;
+        }
+
+        .icon-link:hover {
+          transform: scale(1.2);
+        }
+
+        /* Tablet view */
+        @media (max-width: 768px) {
+          .navbar-gradient-text {
+            font-size: 18px;
+          }
+          .nav-links {
+            gap: 30px;
+          }
+          .nav-link {
+            font-size: 14px;
+          }
+        }
+
+        /* Mobile view */
+        @media (max-width: 480px) {
+          .navbar-gradient-text {
+            font-size: 16px;
+          }
+          .nav-links {
+            gap: 20px;
+          }
+          .nav-link {
+            font-size: 13px;
+          }
+          .nav-icons img {
+            width: 20px;
+            height: 20px;
+          }
         }
       `}</style>
     </nav>
