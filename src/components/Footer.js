@@ -1,4 +1,3 @@
-// components/Footer.js
 export default function Footer() {
   return (
     <footer style={footerWrapper}>
@@ -46,15 +45,9 @@ export default function Footer() {
 
       {/* Styles */}
       <style jsx>{`
-        
         .bubbly-gradient-text {
           background: linear-gradient(
             90deg,
-            #00b4ff,
-            #58d0ff,
-            #b16eff,
-            #ff70cf,
-            #fd7fb5,
             #00b4ff,
             #58d0ff,
             #b16eff,
@@ -81,6 +74,27 @@ export default function Footer() {
         }
         .footer-link:hover {
           text-decoration: underline;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+          footer {
+            padding: 30px 10px 20px;
+          }
+          h2 {
+            font-size: 1.4rem !important;
+          }
+          nav {
+            gap: 15px !important;
+            font-size: 0.9rem;
+          }
+          .footer-link {
+            font-size: 0.9rem;
+          }
+          div[style*="contactWrapper"] {
+            gap: 10px !important;
+            flex-direction: column;
+          }
         }
       `}</style>
     </footer>

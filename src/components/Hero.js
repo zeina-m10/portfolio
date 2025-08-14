@@ -1,7 +1,7 @@
 export default function Hero() {
   return (
-      <section
-      id="about" // 🔹 Added ID for smooth scroll target
+    <section
+      id="about"
       style={{
         position: 'relative',
         zIndex: 2,
@@ -10,32 +10,36 @@ export default function Hero() {
         justifyContent: 'center',
         alignItems: 'center',
         minHeight: '80vh',
-        scrollMarginTop: '70px' // 🔹 Offset for navbar
+        scrollMarginTop: '70px',
+        padding: '20px'
       }}
     >
-      {/* Glassmorphism Frame */}
       <div
         style={{
           background: 'rgba(255, 255, 255, 0.10)',
           borderRadius: '25px',
-          padding: '80px',
+          padding: 'clamp(20px, 5vw, 80px)',
           maxWidth: '1000px',
+          width: '100%',
           textAlign: 'center',
           backdropFilter: 'blur(20px) saturate(180%)',
           WebkitBackdropFilter: 'blur(20px) saturate(180%)',
           border: '1px solid rgba(255, 255, 255, 0.4)',
           boxShadow: '0 8px 40px rgba(0, 0, 0, 0.15)',
-          position: 'relative' // for absolute positioning inside
+          position: 'relative',
+          margin: '0 auto',
+          paddingBottom: '70px' // ✅ Extra space for "Psst" text
         }}
       >
         {/* Main Heading */}
         <h1
-          className="bubbly-gradient-text"
+          className="bubbly-gradient-text hero-heading"
           style={{
             fontSize: 'clamp(2rem, 4vw, 3rem)',
             marginBottom: '10px',
-            whiteSpace: 'nowrap',
-            pointerEvents: 'none'
+            whiteSpace: 'normal',
+            pointerEvents: 'none',
+            lineHeight: 1.2
           }}
         >
           Hey there, welcome to my portfolio!
@@ -43,6 +47,7 @@ export default function Hero() {
 
         {/* Tagline */}
         <p
+          className="hero-tagline"
           style={{
             fontSize: 'clamp(1rem, 2.5vw, 1.3rem)',
             color: '#222',
@@ -51,11 +56,12 @@ export default function Hero() {
             pointerEvents: 'none'
           }}
         >
-          Blending creativity with purpose to create beautiful, user‑friendly experiences.
+          Blending creativity with purpose to create beautiful, user-friendly experiences.
         </p>
 
-        {/* About Me - Paragraph 1 */}
+        {/* Paragraph 1 */}
         <p
+          className="hero-text"
           style={{
             fontSize: '1rem',
             maxWidth: '800px',
@@ -63,18 +69,20 @@ export default function Hero() {
             margin: '0 auto 10px',
             color: '#222',
             textAlign: 'center',
-            pointerEvents: 'none'
+            pointerEvents: 'none',
+            padding: '0 10px'
           }}
         >
           I’m <span className="bubbly-gradient-text">Zeina Mohamed</span>, an aspiring{' '}
           <span className="bubbly-gradient-text">UI/UX designer</span> passionate about
-          transforming ideas into delightful, user‑friendly experiences. With a love for
+          transforming ideas into delightful, user-friendly experiences. With a love for
           details and a bubbly creative spirit, I aim to design interfaces that feel as
           good as they look.
         </p>
- 
-        {/* About Me - Paragraph 2 */}
+
+        {/* Paragraph 2 */}
         <p
+          className="hero-text"
           style={{
             fontSize: '1rem',
             maxWidth: '650px',
@@ -82,35 +90,36 @@ export default function Hero() {
             margin: '0 auto',
             color: '#222',
             textAlign: 'center',
-            pointerEvents: 'none'
+            pointerEvents: 'none',
+            padding: '0 10px'
           }}
         >
           Currently exploring new design challenges and growing my skills, I combine{' '}
           <span className="bubbly-gradient-text">creativity</span>,{' '}
-          <span className="bubbly-gradient-text">problem‑solving</span>, and a touch of{' '}
+          <span className="bubbly-gradient-text">problem-solving</span>, and a touch of{' '}
           <span className="bubbly-gradient-text">playfulness</span> in every project I
           create.
         </p>
 
-        {/* Small bottom-right text */}
+        {/* "Psst" Text */}
         <span
-  style={{
-    position: 'absolute',
-    bottom: '15px',
-    right: '20px',
-    fontSize: '0.85rem',
-    fontWeight: '300',
-    color: '#555',
-    fontStyle: 'italic',
-    pointerEvents: 'none',
-    userSelect: 'none',
-  }}
->
-  👀 Psst, pop the bubbles
-</span>
+          className="psst-text"
+          style={{
+            position: 'absolute',
+            bottom: '15px',
+            right: '20px',
+            fontSize: '0.85rem',
+            fontWeight: '300',
+            color: '#555',
+            fontStyle: 'italic',
+            pointerEvents: 'none',
+            userSelect: 'none'
+          }}
+        >
+          👀 Psst, pop the bubbles
+        </span>
 
-
-        {/* Gradient Animation Styles */}
+        {/* Styles */}
         <style jsx>{`
           .bubbly-gradient-text {
             background: linear-gradient(
@@ -130,17 +139,23 @@ export default function Hero() {
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            color: transparent;
             animation: gradientFlow 40s linear infinite alternate;
             font-weight: bold;
           }
 
-          @keyframes diagonalFlow {
-            0% {
-              background-position: 0% 0%;
+          /* Mobile adjustments */
+          @media (max-width: 768px) {
+            .hero-heading {
+              font-size: 1.5rem !important;
             }
-            100% {
-              background-position: 100% 100%;
+            .hero-tagline {
+              font-size: 1rem !important;
+            }
+            .hero-text {
+              font-size: 0.9rem !important;
+            }
+            .psst-text {
+              font-size: 0.65rem !important; /* ✅ Scaled proportionally */
             }
           }
         `}</style>
