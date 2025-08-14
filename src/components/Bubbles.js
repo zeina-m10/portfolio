@@ -12,7 +12,7 @@ function Bubble({ position, size, texture, onPop }) {
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime();
 
-    // Floating
+    // Floating movement
     if (mesh.current) {
       mesh.current.position.x = position[0] + Math.sin(t + position[1]) * 0.15;
       mesh.current.position.y = position[1] + Math.cos(t + position[0]) * 0.15;
@@ -25,11 +25,9 @@ function Bubble({ position, size, texture, onPop }) {
     }
   });
 
-  // Hover → trigger popping
-  const handleHover = () => {
+  const handlePopAction = () => {
     if (!popping) {
       setPopping(true);
-      // Remove after animation ends
       setTimeout(() => onPop(), 300);
     }
   };
@@ -39,7 +37,8 @@ function Bubble({ position, size, texture, onPop }) {
       ref={mesh}
       position={position}
       scale={[size * scale, size * scale, 1]}
-      onPointerOver={handleHover}
+      onPointerOver={handlePopAction}
+      onClick={handlePopAction}
     >
       <planeGeometry args={[1, 1]} />
       <meshBasicMaterial
@@ -47,9 +46,9 @@ function Bubble({ position, size, texture, onPop }) {
         transparent
         opacity={opacity}
         alphaTest={0.05}
-        blending={THREE.NoBlending} // keep original PNG colors
-        toneMapped={false}          // prevent grey tint
-        color="white"               // no color filter
+        blending={THREE.NoBlending}
+        toneMapped={false}
+        color="white"
         side={THREE.DoubleSide}
       />
     </mesh>
@@ -57,7 +56,6 @@ function Bubble({ position, size, texture, onPop }) {
 }
 
 export default function Bubbles() {
-  // Load only your 3 images
   const textures = useLoader(THREE.TextureLoader, [
     '/bubble1.png',
     '/bubble2.png',
@@ -69,35 +67,39 @@ export default function Bubbles() {
     tex.needsUpdate = true;
   });
 
-  // Initial set of bubbles
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
+  const initialCounts = isMobile
+    ? { big: 20, medium: 30, small: 40 }
+    : { big: 70, medium: 80, small: 100 };
+
   const [bubbles, setBubbles] = useState(() => {
     const arr = [];
-    for (let i = 0; i < 70; i++) arr.push(createBubble('big', textures));
-    for (let i = 0; i < 80; i++) arr.push(createBubble('medium', textures));
-    for (let i = 0; i < 100; i++) arr.push(createBubble('small', textures));
+    for (let i = 0; i < initialCounts.big; i++) arr.push(createBubble('big', textures, isMobile));
+    for (let i = 0; i < initialCounts.medium; i++) arr.push(createBubble('medium', textures, isMobile));
+    for (let i = 0; i < initialCounts.small; i++) arr.push(createBubble('small', textures, isMobile));
     return arr;
   });
 
-  // Regenerate bubbles
   useEffect(() => {
     const interval = setInterval(() => {
       setBubbles((prev) => {
-        if (prev.length < 250) {
+        const maxBubbles = isMobile ? 100 : 250;
+        if (prev.length < maxBubbles) {
           const sizeType =
             Math.random() < 0.3
               ? 'big'
               : Math.random() < 0.65
               ? 'medium'
               : 'small';
-          return [...prev, createBubble(sizeType, textures)];
+          return [...prev, createBubble(sizeType, textures, isMobile)];
         }
         return prev;
       });
     }, 300);
     return () => clearInterval(interval);
-  }, [textures]);
+  }, [textures, isMobile]);
 
-  // Remove popped bubble
   const handlePop = (id) => {
     setBubbles((prev) => prev.filter((b) => b.id !== id));
   };
@@ -106,7 +108,13 @@ export default function Bubbles() {
     <Canvas
       style={{
         background: 'transparent',
-        pointerEvents: 'auto' // allow interaction
+        pointerEvents: 'auto',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 1
       }}
       camera={{ position: [0, 0, 8] }}
     >
@@ -118,8 +126,8 @@ export default function Bubbles() {
   );
 }
 
-// Create bubble with correct size & spread
-function createBubble(sizeType, textures) {
+// Spread is wider on desktop
+function createBubble(sizeType, textures, isMobile) {
   let sizeRange;
   if (sizeType === 'big') sizeRange = [0.4, 0.55];
   else if (sizeType === 'medium') sizeRange = [0.25, 0.4];
@@ -127,11 +135,14 @@ function createBubble(sizeType, textures) {
 
   const size = sizeRange[0] + Math.random() * (sizeRange[1] - sizeRange[0]);
 
+  const spreadX = isMobile ? 8 : 18;
+  const spreadY = isMobile ? 6 : 12;
+
   return {
     id: crypto.randomUUID(),
     position: [
-      (Math.random() - 0.5) * 18, // horizontal spread
-      (Math.random() - 0.5) * 12, // vertical spread
+      (Math.random() - 0.5) * spreadX,
+      (Math.random() - 0.5) * spreadY,
       0
     ],
     size,
