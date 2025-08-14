@@ -16,12 +16,14 @@ const outerWrapper = {
   flexDirection: "column",
   alignItems: "center",
   width: "100%",
-  maxWidth: "1100px",
+  maxWidth: "1000px", // ⬅ match Hero section
   margin: "0 auto 80px",
   gap: "32px",
   pointerEvents: "none",
-  scrollMarginTop: "70px", // 🔹 so it won't hide under navbar
+  scrollMarginTop: "70px",
+  padding: "0 20px" // ⬅ same side padding as Hero
 };
+
 
 const cardContainer = {
   display: "flex",

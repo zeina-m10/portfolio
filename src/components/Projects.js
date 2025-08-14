@@ -1,4 +1,3 @@
-// components/Projects.js
 import React, { useState } from "react";
 
 const sectionWrapper = {
@@ -6,10 +5,12 @@ const sectionWrapper = {
   flexDirection: "column",
   alignItems: "center",
   width: "100%",
-  maxWidth: "1100px",
+  maxWidth: "1000px", // same width as Hero
   margin: "0 auto 80px",
   gap: "30px",
-  pointerEvents: "none", // bubbles can pop behind
+  pointerEvents: "none",
+  scrollMarginTop: "70px", // offset for navbar
+  padding: "0 20px" // same side spacing as Hero
 };
 
 const gridStyle = {
@@ -17,7 +18,7 @@ const gridStyle = {
   gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
   gap: "24px",
   width: "100%",
-  pointerEvents: "none", // allow bubbles behind grid gaps
+  pointerEvents: "none",
 };
 
 const baseCardStyle = {
@@ -32,7 +33,7 @@ const baseCardStyle = {
   flexDirection: "column",
   textAlign: "center",
   transition: "transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease",
-  pointerEvents: "auto", // card itself is clickable
+  pointerEvents: "auto",
 };
 
 const imgWrapperStyle = {
@@ -106,20 +107,7 @@ export default function Projects() {
   ];
 
   return (
-    <div
-      id="projects" // 🔹 Added ID
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        width: "100%",
-        maxWidth: "1100px",
-        margin: "0 auto 80px",
-        gap: "30px",
-        pointerEvents: "none",
-        scrollMarginTop: "70px" // 🔹 Offset
-      }}
-    >
+    <div id="projects" style={sectionWrapper}>
       <h2
         className="bubbly-gradient-text"
         style={{
@@ -128,7 +116,7 @@ export default function Projects() {
           letterSpacing: "1px",
           lineHeight: "1.15",
           textAlign: "center",
-          pointerEvents: "auto", // heading clickable/selectable
+          pointerEvents: "auto",
         }}
       >
         Projects
@@ -197,7 +185,6 @@ export default function Projects() {
         })}
       </div>
 
-      {/* gradient text animation (same as Skills & Hero) */}
       <style jsx>{`
         .bubbly-gradient-text {
           background: linear-gradient(
@@ -220,8 +207,6 @@ export default function Projects() {
           color: transparent;
           animation: gradientFlow 40s linear infinite alternate;
           font-weight: 700;
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
         }
 
         @keyframes gradientFlow {

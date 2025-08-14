@@ -1,4 +1,3 @@
-// components/Navbar.js
 export default function Navbar() {
   return (
     <nav className="navbar">
@@ -28,7 +27,7 @@ export default function Navbar() {
           rel="noopener noreferrer"
           className="icon-link"
         >
-          <img src="/icons/gmail.svg" alt="Gmail" width="25" height="25" />
+          <img src="/icons/gmail.svg" alt="Gmail" />
         </a>
 
         <a
@@ -37,7 +36,7 @@ export default function Navbar() {
           rel="noopener noreferrer"
           className="icon-link"
         >
-          <img src="/icons/linkedin.svg" alt="LinkedIn" width="23" height="23" />
+          <img src="/icons/linkedin.svg" alt="LinkedIn" />
         </a>
       </div>
 
@@ -76,6 +75,7 @@ export default function Navbar() {
           background-clip: text;
           -webkit-text-fill-color: transparent;
           animation: gradientFlow 8s linear infinite alternate;
+          white-space: nowrap; /* prevents name from wrapping */
         }
 
         @keyframes gradientFlow {
@@ -97,6 +97,7 @@ export default function Navbar() {
           position: relative;
           padding: 2px 4px;
           transition: all 0.3s ease;
+          white-space: nowrap;
         }
 
         .nav-link:hover {
@@ -120,20 +121,16 @@ export default function Navbar() {
         /* Icons */
         .nav-icons {
           display: flex;
-          gap: 15px;
-          font-size: 22px;
+          gap: 12px;
         }
 
-        .icon-link {
+        .icon-link img {
+          width: 25px;
+          height: 25px;
           transition: transform 0.2s ease;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 5px;
-          overflow: visible;
         }
 
-        .icon-link:hover {
+        .icon-link:hover img {
           transform: scale(1.2);
         }
 
@@ -151,21 +148,34 @@ export default function Navbar() {
         }
 
         /* Mobile view */
-        @media (max-width: 480px) {
-          .navbar-gradient-text {
-            font-size: 16px;
-          }
-          .nav-links {
-            gap: 20px;
-          }
-          .nav-link {
-            font-size: 13px;
-          }
-          .nav-icons img {
-            width: 20px;
-            height: 20px;
-          }
-        }
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0 12px; /* space inside navbar edges */
+  }
+
+  .navbar-gradient-text {
+    font-size: 15px;
+    margin-right: 8px; /* space between name and links */
+  }
+
+  .nav-links {
+    gap: 14px; /* closer together */
+  }
+
+  .nav-link {
+    font-size: 12px; /* slightly smaller text */
+  }
+
+  .nav-icons {
+    gap: 12px; /* compact icon spacing */
+  }
+
+  .icon-link img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
       `}</style>
     </nav>
   );
