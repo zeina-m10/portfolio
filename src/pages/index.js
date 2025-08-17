@@ -4,6 +4,7 @@ import Hero from '../components/Hero';
 import Skills from '../components/Skills'; // ⬅ new section
 import Projects from '@/components/Projects';
 import Footer from '@/components/Footer';
+import StillLearning from '@/components/StillLearning';
 
 const Bubbles = dynamic(() => import('../components/Bubbles'), {
   ssr: false
@@ -83,6 +84,18 @@ export default function Home() {
         }}
       >
         <Projects />
+      </div>
+      <div
+        style={{
+          position: 'relative',
+          zIndex: 15,
+          pointerEvents: 'none', // bubbles can pop behind
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: '100px'
+        }}
+      >
+        <StillLearning />
       </div>
       <div
         style={{

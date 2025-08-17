@@ -32,6 +32,14 @@ export default function Footer() {
           >
             <img src="/icons/linkedin.svg" alt="LinkedIn" width="23" height="23" />
           </a>
+          <a
+            href="https://www.behance.net/zeinamohamed110"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={iconLink}
+          >
+            <img src="/icons/behance.svg" alt="Gmail" width="25" height="25" />
+          </a>
           <a href="tel:+201021299266" className="footer-link">
             📞 +20 0102 129 9266
           </a>
@@ -110,7 +118,7 @@ const footerWrapper = {
   borderTop: "1px solid rgba(255,255,255,0.35)",
   padding: "50px 20px 30px",
   boxShadow: "0 -4px 20px rgba(0,0,0,0.08)",
-  pointerEvents: "auto",
+  pointerEvents: "none",
 };
 
 const footerContent = {

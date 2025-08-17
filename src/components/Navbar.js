@@ -38,6 +38,15 @@ export default function Navbar() {
         >
           <img src="/icons/linkedin.svg" alt="LinkedIn" />
         </a>
+
+        <a
+          href="https://www.behance.net/zeinamohamed110"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="icon-link"
+        >
+          <img src="/icons/behance.svg" alt="Behance" />
+        </a>
       </div>
 
       <style jsx>{`
@@ -75,7 +84,7 @@ export default function Navbar() {
           background-clip: text;
           -webkit-text-fill-color: transparent;
           animation: gradientFlow 8s linear infinite alternate;
-          white-space: nowrap; /* prevents name from wrapping */
+          white-space: nowrap;
         }
 
         @keyframes gradientFlow {
@@ -148,34 +157,33 @@ export default function Navbar() {
         }
 
         /* Mobile view */
-@media (max-width: 480px) {
-  .navbar {
-    padding: 0 12px; /* space inside navbar edges */
-  }
+        @media (max-width: 480px) {
+          .navbar {
+            padding: 0 12px;
+          }
 
-  .navbar-gradient-text {
-    font-size: 15px;
-    margin-right: 8px; /* space between name and links */
-  }
+          .navbar-gradient-text {
+            font-size: 15px;
+            margin-right: 8px;
+          }
 
-  .nav-links {
-    gap: 14px; /* closer together */
-  }
+          .nav-links {
+            gap: 14px;
+          }
 
-  .nav-link {
-    font-size: 12px; /* slightly smaller text */
-  }
+          .nav-link {
+            font-size: 12px;
+          }
 
-  .nav-icons {
-    gap: 12px; /* compact icon spacing */
-  }
+          .nav-icons {
+            gap: 10px;
+          }
 
-  .icon-link img {
-    width: 20px;
-    height: 20px;
-  }
-}
-
+          .icon-link img {
+            width: 20px;
+            height: 20px;
+          }
+        }
       `}</style>
     </nav>
   );

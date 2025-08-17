@@ -1,24 +1,22 @@
 import { Canvas, useFrame, useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useState as useReactState } from 'react';
 
 function Bubble({ position, size, texture, onPop }) {
   const mesh = useRef();
-  const [scale, setScale] = useState(1);
-  const [opacity, setOpacity] = useState(1);
-  const [popping, setPopping] = useState(false);
+  const [scale, setScale] = useReactState(1);
+  const [opacity, setOpacity] = useReactState(1);
+  const [popping, setPopping] = useReactState(false);
 
   // Floating + popping animation
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime();
 
-    // Floating movement
     if (mesh.current) {
       mesh.current.position.x = position[0] + Math.sin(t + position[1]) * 0.15;
       mesh.current.position.y = position[1] + Math.cos(t + position[0]) * 0.15;
     }
 
-    // Popping animation
     if (popping) {
       setOpacity((o) => Math.max(o - 0.05, 0));
       setScale((s) => Math.max(s - 0.1, 0));
@@ -73,7 +71,7 @@ export default function Bubbles() {
     ? { big: 20, medium: 30, small: 40 }
     : { big: 70, medium: 80, small: 100 };
 
-  const [bubbles, setBubbles] = useState(() => {
+  const [bubbles, setBubbles] = useReactState(() => {
     const arr = [];
     for (let i = 0; i < initialCounts.big; i++) arr.push(createBubble('big', textures, isMobile));
     for (let i = 0; i < initialCounts.medium; i++) arr.push(createBubble('medium', textures, isMobile));
@@ -81,17 +79,25 @@ export default function Bubbles() {
     return arr;
   });
 
+  // Track full page height
+  const [pageHeight, setPageHeight] = useReactState(0);
+
+  useEffect(() => {
+    const updateHeight = () => setPageHeight(document.body.scrollHeight);
+    updateHeight();
+    window.addEventListener('resize', updateHeight);
+    return () => window.removeEventListener('resize', updateHeight);
+  }, []);
+
   useEffect(() => {
     const interval = setInterval(() => {
       setBubbles((prev) => {
         const maxBubbles = isMobile ? 100 : 250;
         if (prev.length < maxBubbles) {
           const sizeType =
-            Math.random() < 0.3
-              ? 'big'
-              : Math.random() < 0.65
-              ? 'medium'
-              : 'small';
+            Math.random() < 0.3 ? 'big'
+            : Math.random() < 0.65 ? 'medium'
+            : 'small';
           return [...prev, createBubble(sizeType, textures, isMobile)];
         }
         return prev;
@@ -112,9 +118,9 @@ export default function Bubbles() {
         position: 'absolute',
         top: 0,
         left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 1
+        width: '100vw',
+        height: `${pageHeight}px`,   // ✅ full document height
+        zIndex: 0
       }}
       camera={{ position: [0, 0, 8] }}
     >
@@ -126,7 +132,7 @@ export default function Bubbles() {
   );
 }
 
-// Spread is wider on desktop
+// Same size & spread as original
 function createBubble(sizeType, textures, isMobile) {
   let sizeRange;
   if (sizeType === 'big') sizeRange = [0.4, 0.55];

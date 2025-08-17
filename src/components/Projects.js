@@ -14,10 +14,11 @@ const sectionWrapper = {
 };
 
 const gridStyle = {
-  display: "grid",
-  gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+  display: "flex", // ✅ changed from grid to flex
+  justifyContent: "center", // ✅ center single project
   gap: "24px",
   width: "100%",
+  flexWrap: "wrap",
   pointerEvents: "none",
 };
 
@@ -34,6 +35,8 @@ const baseCardStyle = {
   textAlign: "center",
   transition: "transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease",
   pointerEvents: "auto",
+  maxWidth: "320px", // ✅ keeps card from being too big
+  flex: "1 1 300px", // ✅ responsive size
 };
 
 const imgWrapperStyle = {
@@ -87,23 +90,23 @@ export default function Projects() {
 
   const projects = [
     {
-      title: "Swaply",
-      desc: "Peer-to-peer skill exchange platform with modern UI/UX.",
-      img: "/screenshot.png",
-      link: "#",
-    },
-    {
       title: "Outly",
       desc: "Group outing planning app designed with user-centered approach.",
       img: "/Outly.png",
       link: "https://www.figma.com/design/alcuBJ2F6Xno6iHPFX3sbC/My-Outly",
     },
-    {
-      title: "Portfolio Website",
-      desc: "Personal portfolio showcasing skills, projects, and contact info.",
-      img: "/screenshot.png",
-      link: "#",
-    },
+     {
+       title: "Melted",
+       desc: "A modern and user-friendly landing page highlighting product benefits.",
+       img: "/meltedcover1.png",
+       link: "https://www.figma.com/design/3WIYxL2zNlhieKJHu1iDty/Melted?node-id=133-415&t=qaXr5NK20oZvxAfZ-1",
+     },
+     {
+       title: "Breadfast Dashboard",
+       desc: "An dashboard presenting key business metrics through easy-to-read visuals.",
+       img: "/cover.png",
+       link: "https://www.figma.com/design/UC89XVXjp1a3knVa6hydsb/Dashboard?node-id=52-7623&t=MKoEYm7akcWILHEN-1",
+     },
   ];
 
   return (
@@ -116,10 +119,10 @@ export default function Projects() {
           letterSpacing: "1px",
           lineHeight: "1.15",
           textAlign: "center",
-          pointerEvents: "auto",
+          pointerEvents: "none",
         }}
       >
-        Projects
+        My Projects
       </h2>
 
       <div style={gridStyle}>
@@ -161,7 +164,7 @@ export default function Projects() {
                   href={p.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ pointerEvents: "auto" }}
+                  style={{ pointerEvents: "none" }}
                 >
                   <button
                     style={{
