@@ -92,7 +92,7 @@ export default function Home() {
           pointerEvents: 'none', // bubbles can pop behind
           display: 'flex',
           justifyContent: 'center',
-          marginTop: '100px'
+          marginTop: '80px'
         }}
       >
         <StillLearning />

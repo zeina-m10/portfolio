@@ -1,6 +1,6 @@
 import { Canvas, useFrame, useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
-import { useState, useRef, useEffect, useState as useReactState } from 'react';
+import { useRef, useEffect, useState as useReactState } from 'react';
 
 function Bubble({ position, size, texture, onPop }) {
   const mesh = useRef();
@@ -132,12 +132,12 @@ export default function Bubbles() {
   );
 }
 
-// Same size & spread as original
+// --- adjusted bubble sizes only ---
 function createBubble(sizeType, textures, isMobile) {
   let sizeRange;
-  if (sizeType === 'big') sizeRange = [0.4, 0.55];
-  else if (sizeType === 'medium') sizeRange = [0.25, 0.4];
-  else sizeRange = [0.15, 0.25];
+  if (sizeType === 'big') sizeRange = [0.32, 0.45];       // smaller than before
+  else if (sizeType === 'medium') sizeRange = [0.20, 0.32]; // smaller
+  else sizeRange = [0.12, 0.20];                           // smaller
 
   const size = sizeRange[0] + Math.random() * (sizeRange[1] - sizeRange[0]);
 
