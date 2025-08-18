@@ -2,18 +2,12 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       {/* Left - Gradient name */}
-      <div className="navbar-gradient-text">
-        Zeina Mohamed
-      </div>
+      <div className="navbar-gradient-text">Zeina Mohamed</div>
 
       {/* Middle - Links */}
       <div className="nav-links">
         {['About', 'Skills', 'Projects'].map((link) => (
-          <a
-            key={link}
-            href={`#${link.toLowerCase()}`}
-            className="nav-link"
-          >
+          <a key={link} href={`#${link.toLowerCase()}`} className="nav-link">
             {link}
           </a>
         ))}
@@ -63,7 +57,7 @@ export default function Navbar() {
           padding: 0 20px;
           backdrop-filter: blur(10px);
           background: rgba(255, 255, 255, 0.3);
-          box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
           z-index: 10000;
         }
 
@@ -88,8 +82,12 @@ export default function Navbar() {
         }
 
         @keyframes gradientFlow {
-          0% { background-position: 0% 50%; }
-          100% { background-position: 100% 50%; }
+          0% {
+            background-position: 0% 50%;
+          }
+          100% {
+            background-position: 100% 50%;
+          }
         }
 
         /* Links */
@@ -97,6 +95,7 @@ export default function Navbar() {
           display: flex;
           gap: 50px;
           justify-content: center;
+          flex: 1;
         }
 
         .nav-link {
@@ -146,42 +145,46 @@ export default function Navbar() {
         /* Tablet view */
         @media (max-width: 768px) {
           .navbar-gradient-text {
-            font-size: 18px;
+            font-size: 15px; /* smaller name */
           }
           .nav-links {
-            gap: 30px;
+            gap: 20px; /* closer links */
           }
           .nav-link {
-            font-size: 14px;
+            font-size: 13px;
+          }
+          .icon-link img {
+            width: 18px;
+            height: 18px;
           }
         }
 
         /* Mobile view */
         @media (max-width: 480px) {
           .navbar {
-            padding: 0 12px;
+            padding: 0 10px;
+            height: 55px;
           }
 
           .navbar-gradient-text {
-            font-size: 15px;
-            margin-right: 8px;
+            font-size: 12px; /* smaller name on mobile */
           }
 
           .nav-links {
-            gap: 14px;
+            gap: 8px;
           }
 
           .nav-link {
-            font-size: 12px;
+            font-size: 11px;
           }
 
           .nav-icons {
-            gap: 10px;
+            gap: 5px;
           }
 
           .icon-link img {
-            width: 20px;
-            height: 20px;
+            width: 14px;
+            height: 14px;
           }
         }
       `}</style>

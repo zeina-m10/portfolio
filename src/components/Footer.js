@@ -20,7 +20,7 @@ export default function Footer() {
             href="https://mail.google.com/mail/?view=cm&fs=1&to=zn.mhmd2003@gmail.com"
             target="_blank"
             rel="noopener noreferrer"
-            style={iconLink}
+            className="icon-link"
           >
             <img src="/icons/gmail.svg" alt="Gmail" width="25" height="25" />
           </a>
@@ -28,7 +28,7 @@ export default function Footer() {
             href="https://www.linkedin.com/in/zeinamohamed2003"
             target="_blank"
             rel="noopener noreferrer"
-            style={iconLink}
+            className="icon-link"
           >
             <img src="/icons/linkedin.svg" alt="LinkedIn" width="23" height="23" />
           </a>
@@ -36,9 +36,9 @@ export default function Footer() {
             href="https://www.behance.net/zeinamohamed110"
             target="_blank"
             rel="noopener noreferrer"
-            style={iconLink}
+            className="icon-link"
           >
-            <img src="/icons/behance.svg" alt="Gmail" width="25" height="25" />
+            <img src="/icons/behance.svg" alt="Behance" width="25" height="25" />
           </a>
           <a href="tel:+201021299266" className="footer-link">
             📞 +20 0102 129 9266
@@ -84,6 +84,16 @@ export default function Footer() {
           text-decoration: underline;
         }
 
+        .icon-link {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: transform 0.2s ease;
+        }
+        .icon-link:hover {
+          transform: scale(1.15);
+        }
+
         /* Mobile adjustments */
         @media (max-width: 768px) {
           footer {
@@ -118,7 +128,7 @@ const footerWrapper = {
   borderTop: "1px solid rgba(255,255,255,0.35)",
   padding: "50px 20px 30px",
   boxShadow: "0 -4px 20px rgba(0,0,0,0.08)",
-  pointerEvents: "none",
+  pointerEvents: "auto"
 };
 
 const footerContent = {
@@ -148,14 +158,6 @@ const contactWrapper = {
   gap: "15px",
   flexWrap: "wrap",
   justifyContent: "center",
-};
-
-const iconLink = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  padding: "5px",
-  overflow: "visible",
 };
 
 const copyStyle = {

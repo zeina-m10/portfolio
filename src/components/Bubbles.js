@@ -37,6 +37,7 @@ function Bubble({ position, size, texture, onPop }) {
       scale={[size * scale, size * scale, 1]}
       onPointerOver={handlePopAction}
       onClick={handlePopAction}
+      pointerEvents="auto"
     >
       <planeGeometry args={[1, 1]} />
       <meshBasicMaterial
