@@ -68,9 +68,11 @@ export default function Bubbles() {
 
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
-  const initialCounts = isMobile
-    ? { big: 20, medium: 30, small: 40 }
-    : { big: 70, medium: 80, small: 100 };
+  // inside Bubbles component
+const initialCounts = isMobile
+  ? { big: 25, medium: 40, small: 55 }   // ✅ more bubbles for mobile
+  : { big: 60, medium: 70, small: 90 };  // ✅ fewer bubbles for desktop
+
 
   const [bubbles, setBubbles] = useReactState(() => {
     const arr = [];
@@ -133,12 +135,21 @@ export default function Bubbles() {
   );
 }
 
-// --- adjusted bubble sizes only ---
+// --- adjusted bubble sizes for desktop & mobile ---
 function createBubble(sizeType, textures, isMobile) {
   let sizeRange;
-  if (sizeType === 'big') sizeRange = [0.32, 0.45];       // smaller than before
-  else if (sizeType === 'medium') sizeRange = [0.20, 0.32]; // smaller
-  else sizeRange = [0.12, 0.20];                           // smaller
+
+  if (isMobile) {
+    // ✅ make mobile bubbles smaller
+    if (sizeType === 'big') sizeRange = [0.25, 0.35];     // was 0.32–0.45
+    else if (sizeType === 'medium') sizeRange = [0.15, 0.25]; // was 0.20–0.32
+    else sizeRange = [0.08, 0.15];                        // was 0.12–0.20
+  } else {
+    // ✅ make desktop bubbles slightly bigger
+    if (sizeType === 'big') sizeRange = [0.40, 0.6];      // bigger
+    else if (sizeType === 'medium') sizeRange = [0.3, 0.45];  // bigger
+    else sizeRange = [0.18, 0.28];                        // bigger
+  }
 
   const size = sizeRange[0] + Math.random() * (sizeRange[1] - sizeRange[0]);
 
