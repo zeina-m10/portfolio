@@ -103,6 +103,7 @@ export default function Projects() {
      },
      {
        title: "Breadfast Dashboard",
+
        desc: "A dashboard presenting key business metrics through easy-to-read visuals.",
        img: "/Cover.png",
        link: "https://www.figma.com/design/UC89XVXjp1a3knVa6hydsb/Dashboard?node-id=52-7623&t=MKoEYm7akcWILHEN-1",

@@ -71,7 +71,9 @@ export default function Bubbles() {
   // inside Bubbles component
 const initialCounts = isMobile
   ? { big: 25, medium: 40, small: 55 }   // ✅ more bubbles for mobile
+
   : { big: 50, medium: 60, small: 80 };  // ✅ fewer bubbles for desktop
+
 
 
   const [bubbles, setBubbles] = useReactState(() => {
