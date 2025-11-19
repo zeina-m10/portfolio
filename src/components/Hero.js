@@ -46,21 +46,7 @@ export default function Hero() {
           Hey there, welcome to my portfolio!
         </h1>
 
-        {/* Tagline */}
-        <p
-          className="hero-tagline"
-          style={{
-            fontSize: "clamp(1.2rem, 2.8vw, 1.5rem)",
-            color: "#222",
-            maxWidth: "700px",
-            margin: "0 auto 25px",
-            pointerEvents: "none",
-            fontWeight: 500,
-          }}
-        >
-          Blending creativity with purpose to create beautiful, user-friendly
-          experiences.
-        </p>
+        
 
         {/* Paragraph 1 */}
         <p
