@@ -95,7 +95,12 @@ export default function Projects() {
       img: "/Outly.png",
       link: "https://www.figma.com/design/alcuBJ2F6Xno6iHPFX3sbC/My-Outly",
     },
-     
+      {
+       title: "Edutech Platform",
+       desc: "A bilingual educational platform with dark/light modes and an interactive prototype showcasing smooth user flows.",
+       img: "/Covered.png",
+       link: "https://www.figma.com/design/a5LployfdeAnnyR5pgN82b/Edutech-Platform?node-id=4005-2218&t=ILBK1Ght2NSShBqY-1",
+     },
      {
        title: "Hero Sections",
        desc: "Hero sections designed in both light and dark modes using Figma variables.",
@@ -115,12 +120,7 @@ export default function Projects() {
        img: "/Cover.png",
        link: "https://www.figma.com/design/UC89XVXjp1a3knVa6hydsb/Dashboard?node-id=52-7623&t=MKoEYm7akcWILHEN-1",
      },
-     {
-       title: "Edutech Platform (In Progress)",
-       desc: "A bilingual educational platform with dark/light modes and an interactive prototype showcasing smooth user flows.",
-       img: "/hero.png",
-       link: "https://www.figma.com/design/a5LployfdeAnnyR5pgN82b/Edutech-Platform?node-id=4005-2218&t=ILBK1Ght2NSShBqY-1",
-     },
+    
   ];
 
   return (
