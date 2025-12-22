@@ -96,10 +96,10 @@ export default function Projects() {
       link: "https://www.figma.com/design/alcuBJ2F6Xno6iHPFX3sbC/My-Outly",
     },
       {
-       title: "Edutech Platform",
+       title: "Edtech Platform",
        desc: "A bilingual educational platform with dark/light modes and an interactive prototype showcasing smooth user flows.",
        img: "/Covered.png",
-       link: "https://www.figma.com/design/8K7YAyvdMQww7OhBfqnpsV/Edutech-Platform?node-id=0-1&t=O96iOS469B2iLVCM-1",
+       link: "https://www.figma.com/design/8K7YAyvdMQww7OhBfqnpsV/Edutech-Platform?node-id=1-732&t=fky1vtq8CquP0oQg-1",
      },
      {
        title: "Hero Sections",
