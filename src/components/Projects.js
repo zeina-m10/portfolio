@@ -1,21 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const sectionWrapper = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   width: "100%",
-  maxWidth: "1000px", // same width as Hero
+  maxWidth: "1000px",
   margin: "0 auto 80px",
   gap: "30px",
   pointerEvents: "none",
-  scrollMarginTop: "70px", // offset for navbar
-  padding: "0 20px" // same side spacing as Hero
+  scrollMarginTop: "70px",
+  padding: "0 20px",
 };
 
 const gridStyle = {
-  display: "flex", // ✅ changed from grid to flex
-  justifyContent: "center", // ✅ center single project
+  display: "flex",
+  justifyContent: "center",
   gap: "24px",
   width: "100%",
   flexWrap: "wrap",
@@ -35,12 +35,8 @@ const baseCardStyle = {
   textAlign: "center",
   transition: "transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease",
   pointerEvents: "auto",
-  maxWidth: "320px", // ✅ keeps card from being too big
-  flex: "1 1 300px", // ✅ responsive size
-};
-
-const imgWrapperStyle = {
-  overflow: "hidden",
+  maxWidth: "320px",
+  flex: "1 1 300px",
 };
 
 const imgStyle = {
@@ -87,6 +83,29 @@ const buttonStyle = {
 export default function Projects() {
   const [hoverIndex, setHoverIndex] = useState(null);
   const [hoverButtonIndex, setHoverButtonIndex] = useState(null);
+  const [popupImage, setPopupImage] = useState(null);
+
+  // 🔒 HARD SCROLL LOCK (HTML + BODY)
+  useEffect(() => {
+    if (!popupImage) return;
+
+    const scrollY = window.scrollY;
+
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = "100%";
+
+    return () => {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      window.scrollTo(0, scrollY);
+    };
+  }, [popupImage]);
 
   const projects = [
     {
@@ -95,73 +114,79 @@ export default function Projects() {
       img: "/Outly.png",
       link: "https://www.figma.com/design/alcuBJ2F6Xno6iHPFX3sbC/My-Outly",
     },
-      {
-       title: "Edtech Platform",
-       desc: "A bilingual educational platform with dark/light modes and an interactive prototype showcasing smooth user flows.",
-       img: "/Covered.png",
-       link: "https://www.figma.com/design/8K7YAyvdMQww7OhBfqnpsV/Edutech-Platform?node-id=1-732&t=fky1vtq8CquP0oQg-1",
-     },
-     {
-       title: "Hero Sections",
-       desc: "Hero sections designed in both light and dark modes using Figma variables.",
-       img: "/modes.png",
-       link: "https://www.figma.com/design/vVZj5AivWB9k0420ChLtBm/Hero-Sections?node-id=0-1&t=aqLd5k9CiSH5RyEb-1",
-     },
-     {
-       title: "Melted",
-       desc: "A modern and user-friendly landing page highlighting product benefits.",
-       img: "/meltedcover1.png",
-       link: "https://www.figma.com/design/3WIYxL2zNlhieKJHu1iDty/Melted?node-id=133-415&t=qaXr5NK20oZvxAfZ-1",
-     },
-     {
-       title: "Breadfast Dashboard",
-
-       desc: "A dashboard presenting key business metrics through easy-to-read visuals.",
-       img: "/Cover.png",
-       link: "https://www.figma.com/design/UC89XVXjp1a3knVa6hydsb/Dashboard?node-id=52-7623&t=MKoEYm7akcWILHEN-1",
-     },
-    
+    {
+      title: "Edtech Platform",
+      desc: "A bilingual educational platform with dark/light modes.",
+      img: "/Covered.png",
+      link: "https://www.figma.com/design/8K7YAyvdMQww7OhBfqnpsV/Edutech-Platform",
+    },
+    {
+      title: "Hero Sections",
+      desc: "Hero sections designed in both light and dark modes.",
+      img: "/modes.png",
+      link: "https://www.figma.com/design/vVZj5AivWB9k0420ChLtBm/Hero-Sections",
+    },
+    {
+      title: "Melted",
+      desc: "A modern landing page highlighting product benefits.",
+      img: "/meltedcover1.png",
+      link: "https://www.figma.com/design/3WIYxL2zNlhieKJHu1iDty/Melted",
+    },
+    {
+      title: "Breadfast Dashboard",
+      desc: "Dashboard presenting key business metrics.",
+      img: "/Cover.png",
+      link: "https://www.figma.com/design/UC89XVXjp1a3knVa6hydsb/Dashboard",
+    },
+    {
+      title: "Swaply Logo",
+      desc: "Logo designed in Figma for a peer-to-peer exchanging skills website.",
+      img: "/Swaply.png",
+      popup: true,
+    },
+    {
+      title: "Path Logo",
+      desc: "Logo designed in Adobe Illustrator for psychologist's website.",
+      img: "/Path.png",
+      popup: true,
+    },
+    {
+      title: "Melted Logo",
+      desc: "Logo designed in Adobe Illustrator for chocolate's website.",
+      img: "/Melted.png",
+      popup: true,
+    },
   ];
 
   return (
-    <div id="projects" style={sectionWrapper}>
-      <h2
-        className="bubbly-gradient-text"
-        style={{
-          fontSize: "2.4rem",
-          fontWeight: 700,
-          letterSpacing: "1px",
-          lineHeight: "1.15",
-          textAlign: "center",
-          pointerEvents: "none",
-        }}
-      >
-        My Projects
-      </h2>
+    <>
+      <div id="projects" style={sectionWrapper}>
+        <h2 className="bubbly-gradient-text" style={{ pointerEvents: "none" }}>
+          My Projects
+        </h2>
 
-      <div style={gridStyle}>
-        {projects.map((p, i) => {
-          const isHovered = hoverIndex === i;
-          const isButtonHovered = hoverButtonIndex === i;
+        <div style={gridStyle}>
+          {projects.map((p, i) => {
+            const isHovered = hoverIndex === i;
+            const isButtonHovered = hoverButtonIndex === i;
 
-          return (
-            <div
-              key={i}
-              style={{
-                ...baseCardStyle,
-                ...(isHovered
-                  ? {
-                      transform: "translateY(-6px)",
-                      boxShadow:
-                        "0 0 12px rgba(63,175,249,0.25), 0 0 20px rgba(25,198,204,0.15)",
-                      border: "1px solid rgba(255,255,255,0.55)",
-                    }
-                  : {}),
-              }}
-              onMouseEnter={() => setHoverIndex(i)}
-              onMouseLeave={() => setHoverIndex(null)}
-            >
-              <div style={imgWrapperStyle}>
+            return (
+              <div
+                key={i}
+                style={{
+                  ...baseCardStyle,
+                  ...(isHovered
+                    ? {
+                        transform: "translateY(-6px)",
+                        boxShadow:
+                          "0 0 12px rgba(63,175,249,0.25), 0 0 20px rgba(25,198,204,0.15)",
+                        border: "1px solid rgba(255,255,255,0.55)",
+                      }
+                    : {}),
+                }}
+                onMouseEnter={() => setHoverIndex(i)}
+                onMouseLeave={() => setHoverIndex(null)}
+              >
                 <img
                   src={p.img}
                   alt={p.title}
@@ -170,47 +195,121 @@ export default function Projects() {
                     ...(isHovered ? { transform: "scale(1.05)" } : {}),
                   }}
                 />
+
+                <div style={cardContentStyle}>
+                  <div style={titleStyle}>{p.title}</div>
+                  <div style={descStyle}>{p.desc}</div>
+
+                  {p.link ? (
+                    <a
+                      href={p.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ pointerEvents: "auto" }}
+                    >
+                      <button
+                        style={{
+                          ...buttonStyle,
+                          ...(isButtonHovered
+                            ? {
+                                background:
+                                  "linear-gradient(135deg, #9b5de5 0%, #3FAFF9 50%, #ff70cf 100%)",
+                              }
+                            : {}),
+                        }}
+                        onMouseEnter={() => setHoverButtonIndex(i)}
+                        onMouseLeave={() => setHoverButtonIndex(null)}
+                      >
+                        View
+                      </button>
+                    </a>
+                  ) : (
+                    <button
+                      style={{
+                        ...buttonStyle,
+                        ...(isButtonHovered
+                          ? {
+                              background:
+                                "linear-gradient(135deg, #9b5de5 0%, #3FAFF9 50%, #ff70cf 100%)",
+                            }
+                          : {}),
+                      }}
+                      onMouseEnter={() => setHoverButtonIndex(i)}
+                      onMouseLeave={() => setHoverButtonIndex(null)}
+                      onClick={() => setPopupImage(p.img)}
+                    >
+                      View
+                    </button>
+                  )}
+                </div>
               </div>
-              <div style={cardContentStyle}>
-                <div style={titleStyle}>{p.title}</div>
-                <div style={descStyle}>{p.desc}</div>
-                <a
-                  href={p.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ pointerEvents: "none" }}
-                >
-                  <button
-                    style={{
-                      ...buttonStyle,
-                      ...(isButtonHovered
-                        ? {
-                            background:
-                              "linear-gradient(135deg, #9b5de5 0%, #3FAFF9 50%, #ff70cf 100%)",
-                          }
-                        : {}),
-                    }}
-                    onMouseEnter={() => setHoverButtonIndex(i)}
-                    onMouseLeave={() => setHoverButtonIndex(null)}
-                  >
-                    View
-                  </button>
-                </a>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
+
+      {popupImage && (
+        <div
+          onClick={() => setPopupImage(null)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.7)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 99999,
+            pointerEvents: "auto",
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              position: "relative",
+              background: "#fff",
+              padding: "16px",
+              borderRadius: "12px",
+              maxWidth: "90%",
+              maxHeight: "90%",
+              pointerEvents: "auto",
+            }}
+          >
+            <button
+              onClick={() => setPopupImage(null)}
+              style={{
+                position: "absolute",
+                top: "10px",
+                right: "10px",
+                background: "#000",
+                color: "#fff",
+                border: "none",
+                borderRadius: "50%",
+                width: "32px",
+                height: "32px",
+                cursor: "pointer",
+                fontSize: "18px",
+              }}
+            >
+              ✕
+            </button>
+
+            <img
+              src={popupImage}
+              alt="Popup"
+              style={{
+                maxWidth: "100%",
+                maxHeight: "80vh",
+                display: "block",
+              }}
+            />
+          </div>
+        </div>
+      )}
 
       <style jsx>{`
         .bubbly-gradient-text {
           background: linear-gradient(
             90deg,
-            #00b4ff,
-            #58d0ff,
-            #b16eff,
-            #ff70cf,
-            #fd7fb5,
             #00b4ff,
             #58d0ff,
             #b16eff,
@@ -221,9 +320,10 @@ export default function Projects() {
           -webkit-background-clip: text;
           background-clip: text;
           -webkit-text-fill-color: transparent;
-          color: transparent;
           animation: gradientFlow 40s linear infinite alternate;
           font-weight: 700;
+          font-size: 2.4rem;
+          text-align: center;
         }
 
         @keyframes gradientFlow {
@@ -235,6 +335,6 @@ export default function Projects() {
           }
         }
       `}</style>
-    </div>
+    </>
   );
 }

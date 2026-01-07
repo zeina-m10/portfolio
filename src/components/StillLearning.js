@@ -9,6 +9,7 @@ export default function StillLearning() {
     "Sharpening my responsiveness and adaptive design skills to make sure every interface feels smooth across devices.",
     "Exploring advanced Figma tips & tricks to work smarter and unlock new creative possibilities in my workflow.",
     "Diving deeper into UX methods and research practices to strengthen my problem-solving and human-centered mindset.",
+    "Currently learning graphic design and exploring creative layouts.",
   ];
 
   return (
@@ -93,7 +94,7 @@ export default function StillLearning() {
               {text
                 .split(" ")
                 .map((word, idx) =>
-                  ["responsiveness", "adaptive", "Figma", "UX", "research"].some(
+                  ["responsiveness", "adaptive", "Figma", "UX", "research", "graphic", "design"].some(
                     (kw) => word.toLowerCase().includes(kw.toLowerCase())
                   ) ? (
                     <span key={idx} className="bubbly-gradient-text">
