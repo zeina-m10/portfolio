@@ -139,6 +139,12 @@ export default function Projects() {
       link: "https://www.figma.com/design/UC89XVXjp1a3knVa6hydsb/Dashboard",
     },
     {
+      title: "Vodafone RED",
+      desc: "Business campaign visual designed in Adobe Photoshop.",
+      img: "/Vodafone.jpg",
+      popup: true,
+    },
+    {
       title: "Swaply Logo",
       desc: "Logo designed in Figma for a peer-to-peer exchanging skills website.",
       img: "/Swaply.png",
