@@ -283,7 +283,7 @@ export default function Navbar() {
         /* Mobile adjustments */
         @media (max-width: 480px) {
           .navbar {
-            padding: 0 10px;
+            padding: 0 20px;
             height: 55px;
           }
           .navbar-gradient-text {
