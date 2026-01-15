@@ -1,47 +1,110 @@
+import { useState, useEffect } from "react";
+
 export default function Navbar() {
+  const [isMobile, setIsMobile] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const links = ["About", "Skills", "Projects"];
+  const icons = [
+    {
+      href: "https://mail.google.com/mail/?view=cm&fs=1&to=zn.mhmd2003@gmail.com",
+      alt: "Gmail",
+      src: "/icons/gmail.svg",
+    },
+    {
+      href: "https://www.linkedin.com/in/zeinamohamed2003",
+      alt: "LinkedIn",
+      src: "/icons/linkedin.svg",
+    },
+    {
+      href: "https://www.behance.net/zeinamohamed110",
+      alt: "Behance",
+      src: "/icons/behance.svg",
+    },
+  ];
+
   return (
     <nav className="navbar">
       {/* Left - Gradient name */}
       <div className="navbar-gradient-text">Zeina Mohamed</div>
 
       {/* Middle - Links */}
-      <div className="nav-links">
-        {['About', 'Skills', 'Projects'].map((link) => (
-          <a key={link} href={`#${link.toLowerCase()}`} className="nav-link">
-            {link}
-          </a>
-        ))}
-      </div>
+      {isMobile ? (
+        <>
+          {/* Hamburger Button */}
+          <div
+            className={`hamburger ${menuOpen ? "open" : ""}`}
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
 
-      {/* Right - Icons */}
-      <div className="nav-icons">
-        <a
-          href="https://mail.google.com/mail/?view=cm&fs=1&to=zn.mhmd2003@gmail.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="icon-link"
-        >
-          <img src="/icons/gmail.svg" alt="Gmail" />
-        </a>
+          {/* Mobile Menu */}
+          {menuOpen && (
+            <div className="mobile-menu">
+              {links.map((link) => (
+                <a
+                  key={link}
+                  href={`#${link.toLowerCase()}`}
+                  className="mobile-link"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {link}
+                </a>
+              ))}
 
-        <a
-          href="https://www.linkedin.com/in/zeinamohamed2003"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="icon-link"
-        >
-          <img src="/icons/linkedin.svg" alt="LinkedIn" />
-        </a>
+              <div className="mobile-icons">
+                {icons.map((icon) => (
+                  <a
+                    key={icon.alt}
+                    href={icon.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mobile-icon-link"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <img src={icon.src} alt={icon.alt} />
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </>
+      ) : (
+        <div className="nav-links">
+          {links.map((link) => (
+            <a key={link} href={`#${link.toLowerCase()}`} className="nav-link">
+              {link}
+            </a>
+          ))}
+        </div>
+      )}
 
-        <a
-          href="https://www.behance.net/zeinamohamed110"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="icon-link"
-        >
-          <img src="/icons/behance.svg" alt="Behance" />
-        </a>
-      </div>
+      {/* Desktop Icons */}
+      {!isMobile && (
+        <div className="nav-icons">
+          {icons.map((icon) => (
+            <a
+              key={icon.alt}
+              href={icon.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="icon-link"
+            >
+              <img src={icon.src} alt={icon.alt} />
+            </a>
+          ))}
+        </div>
+      )}
 
       <style jsx>{`
         /* Navbar container */
@@ -90,7 +153,7 @@ export default function Navbar() {
           }
         }
 
-        /* Links */
+        /* Desktop links */
         .nav-links {
           display: flex;
           gap: 50px;
@@ -126,7 +189,7 @@ export default function Navbar() {
             0 0 15px rgba(166, 120, 249, 0.4);
         }
 
-        /* Icons */
+        /* Desktop icons */
         .nav-icons {
           display: flex;
           gap: 12px;
@@ -142,49 +205,89 @@ export default function Navbar() {
           transform: scale(1.2);
         }
 
-        /* Tablet view */
+        /* Hamburger */
+        .hamburger {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          width: 25px;
+          height: 20px;
+          cursor: pointer;
+          z-index: 10001;
+        }
+
+        .hamburger span {
+          display: block;
+          height: 3px;
+          background: #000;
+          border-radius: 2px;
+          transition: all 0.3s ease;
+        }
+
+        /* Normal X for mobile */
+        .hamburger.open span:nth-child(1) {
+          transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.open span:nth-child(2) {
+          opacity: 0;
+        }
+        .hamburger.open span:nth-child(3) {
+          transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+          position: absolute;
+          top: 60px;
+          left: 0;
+          width: 100%;
+          background: rgba(255, 255, 255, 0.95);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 15px;
+          padding: 15px 0;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+          z-index: 9999;
+        }
+
+        .mobile-link {
+          text-decoration: none;
+          font-weight: 500;
+          color: #000;
+          font-size: 16px;
+        }
+
+        .mobile-link:hover {
+          color: #3FAFF9;
+        }
+
+        .mobile-icons {
+          display: flex;
+          gap: 15px;
+          margin-top: 10px;
+        }
+
+        .mobile-icon-link img {
+          width: 25px;
+          height: 25px;
+        }
+
+        /* Tablet adjustments */
         @media (max-width: 768px) {
           .navbar-gradient-text {
-            font-size: 15px; /* smaller name */
-          }
-          .nav-links {
-            gap: 20px; /* closer links */
-          }
-          .nav-link {
-            font-size: 13px;
-          }
-          .icon-link img {
-            width: 18px;
-            height: 18px;
+            font-size: 18px; /* slightly bigger for mobile since menu opens */
           }
         }
 
-        /* Mobile view */
+        /* Mobile adjustments */
         @media (max-width: 480px) {
           .navbar {
             padding: 0 10px;
             height: 55px;
           }
-
           .navbar-gradient-text {
-            font-size: 12px; /* smaller name on mobile */
-          }
-
-          .nav-links {
-            gap: 8px;
-          }
-
-          .nav-link {
-            font-size: 11px;
-          }
-
-          .nav-icons {
-            gap: 5px;
-          }
-
-          .icon-link img {
-            width: 14px;
-            height: 14px;
+            font-size: 20px;
           }
         }
       `}</style>

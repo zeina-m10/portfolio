@@ -1,4 +1,15 @@
+import { useEffect, useState } from "react";
+
 export default function Hero() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   return (
     <section
       id="about"
@@ -18,7 +29,7 @@ export default function Hero() {
         style={{
           background: "rgba(255, 255, 255, 0.10)",
           borderRadius: "25px",
-          padding: "clamp(20px, 5vw, 80px)",
+          padding: isMobile ? "40px 20px" : "clamp(20px, 5vw, 80px)", // ✅ mobile padding top/bottom 40px
           maxWidth: "1000px",
           width: "100%",
           textAlign: "center",
@@ -27,8 +38,7 @@ export default function Hero() {
           border: "1px solid rgba(255, 255, 255, 0.4)",
           boxShadow: "0 8px 40px rgba(0, 0, 0, 0.15)",
           position: "relative",
-          margin: "0 auto",
-          paddingBottom: "70px",
+          margin: isMobile ? "0" : "0 auto",
         }}
       >
         {/* Main Heading */}
@@ -45,8 +55,6 @@ export default function Hero() {
         >
           Hey there, welcome to my portfolio!
         </h1>
-
-        
 
         {/* Paragraph 1 */}
         <p
@@ -90,25 +98,26 @@ export default function Hero() {
           every project I create.
         </p>
 
-        {/* "Psst" Text */}
-        <span
-          className="psst-text"
-          style={{
-            position: "absolute",
-            bottom: "15px",
-            right: "20px",
-            fontSize: "0.85rem",
-            fontWeight: "300",
-            color: "#555",
-            fontStyle: "italic",
-            pointerEvents: "none",
-            userSelect: "none",
-          }}
-        >
-          👀 Psst, pop the bubbles
-        </span>
+        {/* "Psst" Text (hidden on mobile) */}
+        {!isMobile && (
+          <span
+            className="psst-text"
+            style={{
+              position: "absolute",
+              bottom: "15px",
+              right: "20px",
+              fontSize: "0.85rem",
+              fontWeight: "300",
+              color: "#555",
+              fontStyle: "italic",
+              pointerEvents: "none",
+              userSelect: "none",
+            }}
+          >
+            👀 Psst, pop the bubbles
+          </span>
+        )}
 
-        {/* Styles */}
         <style jsx>{`
           .bubbly-gradient-text {
             background: linear-gradient(
@@ -146,14 +155,11 @@ export default function Hero() {
             .hero-heading {
               font-size: 1.9rem !important;
             }
-            .hero-tagline {
-              font-size: 1.1rem !important;
-            }
             .hero-text {
               font-size: 0.95rem !important;
             }
             .psst-text {
-              font-size: 0.65rem !important;
+              display: none !important;
             }
           }
         `}</style>

@@ -36,8 +36,8 @@ function Bubble({ position, size, texture, onPop, isMobile }) {
       ref={mesh}
       position={position}
       scale={[size * scale, size * scale, 1]}
-      onPointerOver={!isMobile ? pop : undefined} // ✅ desktop hover
-      onPointerDown={isMobile ? pop : undefined}  // ✅ mobile tap
+      onPointerOver={!isMobile ? pop : undefined} // desktop hover
+      onPointerDown={isMobile ? pop : undefined}  // mobile tap
     >
       <planeGeometry args={[1, 1, 1, 1]} />
       <meshBasicMaterial
@@ -53,6 +53,11 @@ function Bubble({ position, size, texture, onPop, isMobile }) {
 }
 
 export default function Bubbles() {
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
+  // ✅ Return nothing on mobile
+  if (isMobile) return null;
+
   const textures = useLoader(THREE.TextureLoader, [
     '/bubble1.png',
     '/bubble2.png',
@@ -63,15 +68,6 @@ export default function Bubbles() {
     t.colorSpace = THREE.SRGBColorSpace;
     t.needsUpdate = true;
   });
-
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
 
   const [pageHeight, setPageHeight] = useState(
     typeof window !== 'undefined' ? window.innerHeight : 1000
@@ -87,9 +83,7 @@ export default function Bubbles() {
     return () => window.removeEventListener('resize', update);
   }, []);
 
-  const initialCounts = isMobile
-    ? { big: 10, medium: 18, small: 25 }
-    : { big: 60, medium: 80, small: 120 };
+  const initialCounts = { big: 60, medium: 80, small: 120 }; // desktop counts
 
   const [bubbles, setBubbles] = useState(() => {
     const arr = [];
@@ -105,7 +99,7 @@ export default function Bubbles() {
   useEffect(() => {
     const interval = setInterval(() => {
       setBubbles((prev) => {
-        const max = isMobile ? 60 : 250;
+        const max = 250;
         if (prev.length >= max) return prev;
 
         const type =
@@ -154,26 +148,19 @@ export default function Bubbles() {
   );
 }
 
-// --- ORIGINAL SIZE LOGIC RESTORED ---
 function createBubble(type, textures, isMobile) {
   let sizeRange;
 
-  if (isMobile) {
-    if (type === 'big') sizeRange = [0.1, 0.2];
-    else if (type === 'medium') sizeRange = [0.15, 0.25];
-    else sizeRange = [0.08, 0.15];
-  } else {
-    // ✅ EXACTLY like your original desktop sizes
-    if (type === 'big') sizeRange = [0.2, 0.3];
-    else if (type === 'medium') sizeRange = [0.2, 0.32];
-    else sizeRange = [0.12, 0.2];
-  }
+  // ✅ Desktop sizes only (mobile won't render)
+  if (type === 'big') sizeRange = [0.32, 0.45];
+  else if (type === 'medium') sizeRange = [0.2, 0.32];
+  else sizeRange = [0.12, 0.2];
 
   const size =
     sizeRange[0] + Math.random() * (sizeRange[1] - sizeRange[0]);
 
-  const spreadX = isMobile ? 8 : 18;
-  const spreadY = isMobile ? 6 : 12;
+  const spreadX = 18;
+  const spreadY = 12;
 
   return {
     id: crypto.randomUUID(),
