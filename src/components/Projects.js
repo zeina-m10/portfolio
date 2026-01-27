@@ -115,10 +115,16 @@ export default function Projects() {
       link: "https://www.figma.com/design/alcuBJ2F6Xno6iHPFX3sbC/My-Outly",
     },
     {
-      title: "Edtech Platform",
+      title: "Spacetech",
       desc: "A bilingual educational platform with dark/light modes.",
       img: "/Covered.png",
       link: "https://www.figma.com/design/8K7YAyvdMQww7OhBfqnpsV/Edutech-Platform",
+    },
+    {
+      title: "bosta Dashboard",
+      desc: "Redesigning a high-volume order creation flow to reduce friction and improve speed for bulk sellers.",
+      img: "/bosta cover.png",
+      link: "https://www.figma.com/design/9S56TIaD8PgZKRrlmeIKsB/bosta-Assessment---Zeina?node-id=102-142&t=u14seQAyLCBdX7G9-1",
     },
     {
       title: "Hero Sections",
